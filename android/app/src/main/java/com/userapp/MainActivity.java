@@ -1,6 +1,7 @@
 package com.userapp;
 
 import com.facebook.react.ReactActivity;
+import com.showlocationservicesdialogbox.LocationServicesDialogBoxPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 
 public class MainActivity extends ReactActivity {
