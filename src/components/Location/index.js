@@ -1,12 +1,20 @@
+
 import React, { Component } from 'react';
+const { width, height } = Dimensions.get('window');
+import LinearGradient from 'react-native-linear-gradient';
+import PopupDialog from 'react-native-popup-dialog';
+
 import {
   View,
   Text,
   TouchableOpacity,
   Dimensions,
   DeviceEventEmitter,
-  Picker
+  Picker,
+  Image
 } from 'react-native';
+
+
 import { Dropdown } from 'react-native-material-dropdown';
 
 import MapView from 'react-native-maps';
@@ -20,8 +28,8 @@ class Location extends Component {
     super(props);
     this.state = {
       location: {
-        latitude: 0.0,
-        longitude: 0,
+        latitude: 21.617,
+        longitude: 39.156,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       }
@@ -69,6 +77,14 @@ class Location extends Component {
   };
 
   render() {
+
+    let pic = {
+      uri: 'https://cdn3.iconfinder.com/data/icons/menu-icons-1/100/menu-512.png'
+    };
+
+   
+
+
     return (
       <View style={styles.container}>
         <MapView
@@ -78,36 +94,45 @@ class Location extends Component {
           showsCompass={true}
           initialRegion={this.state.location}
           style={styles.redbox}
-        />
-        <View style={{ flexDirection: 'row', flex: 1 }}>
-          <TouchableOpacity
-            style={[
-              styles.submitButton,
-              { flex: 1, justifyContent: 'center', alignItems: 'center' }
-            ]}
-            onPress={() => {
-              const t = {
+        >
+
+      
+
+        </MapView>
+        <LinearGradient colors={['#E54188', '#E54188',]} style=  {[styles.LinearGradientStyle , styles.submitSos]}  start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+        locations={[0,0.5,0.6]} 
+  
+
+        >
+
+        <TouchableOpacity 
+         
+
+        onPress={() => {
+         // this.popupDialog.show();
+         const t = {
                 HelpNeeded: this.state.HelpNeeded,
                 _id: '5b634af62ab229240c9051c2',
                 location: this.state.location
               };
               Emit('request-help', t);
-            }}
-          >
-            <Text style={styles.submitButtonText}> Submit </Text>
-          </TouchableOpacity>
-          <Picker
-            selectedValue={this.state.HelpNeeded}
-            style={{ flex: 4 }}
-            onValueChange={(itemValue, itemIndex) => {
-              this.setState({ HelpNeeded: itemValue });
-              console.warn(this.state.HelpNeeded);
-            }}
-          >
-            <Picker.Item label="Healt Help" value="help" />
-            <Picker.Item label="Lost" value="lost" />
-          </Picker>
-        </View>
+
+        }}
+        >
+       
+        <Text style={styles.submitButtonText}> Help Ask
+             </Text>
+        </TouchableOpacity>
+
+            </LinearGradient>
+
+
+        <Image source={pic} style={styles.burgerMenu}/>
+         
+          
+    
+     
+   
       </View>
     );
   }
