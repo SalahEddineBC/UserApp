@@ -13,6 +13,9 @@ import MapView from 'react-native-maps';
 import styles from './style';
 import Emit from '../../../socket';
 class Location extends Component {
+  static navigationOptions = {
+    header: null
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -24,17 +27,6 @@ class Location extends Component {
       }
     };
   }
-  data = [
-    {
-      value: 'Banana'
-    },
-    {
-      value: 'Mango'
-    },
-    {
-      value: 'Pear'
-    }
-  ];
 
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(
@@ -48,7 +40,7 @@ class Location extends Component {
         this.setState({
           location: pos
         });
-        //this.gotoCurrentLocation();
+        this.gotoCurrentLocation();
       },
       error => console.warn(error.message),
       { enableHighAccuracy: true, timeout: 2500, maximumAge: 3600 }
@@ -63,10 +55,10 @@ class Location extends Component {
       this.setState({
         location: pos
       });
-      // this.gotoCurrentLocation();
+      this.gotoCurrentLocation();
     });
   };
-  /* gotoCurrentLocation = () => {
+  gotoCurrentLocation = () => {
     const { location } = this.state;
     this.map.animateToRegion({
       latitude: parseFloat(location.latitude),
@@ -75,7 +67,7 @@ class Location extends Component {
       longitudeDelta: parseFloat(location.longitudeDelta)
     });
   };
-*/
+
   render() {
     return (
       <View style={styles.container}>
@@ -94,10 +86,9 @@ class Location extends Component {
               { flex: 1, justifyContent: 'center', alignItems: 'center' }
             ]}
             onPress={() => {
-
               const t = {
                 HelpNeeded: this.state.HelpNeeded,
-                userId: 3,
+                _id: '5b634af62ab229240c9051c2',
                 location: this.state.location
               };
               Emit('request-help', t);
@@ -108,13 +99,10 @@ class Location extends Component {
           <Picker
             selectedValue={this.state.HelpNeeded}
             style={{ flex: 4 }}
-            onValueChange={(itemValue, itemIndex) =>{
-              this.setState({ HelpNeeded: itemValue }
-              );
+            onValueChange={(itemValue, itemIndex) => {
+              this.setState({ HelpNeeded: itemValue });
               console.warn(this.state.HelpNeeded);
-              
-            }
-            }
+            }}
           >
             <Picker.Item label="Healt Help" value="help" />
             <Picker.Item label="Lost" value="lost" />

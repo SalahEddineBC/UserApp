@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   submitButtonText: {
     color: 'white',
     textAlign: 'center'
-  },
+  },  
 });
 export default styles;
