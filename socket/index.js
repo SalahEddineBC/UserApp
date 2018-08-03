@@ -11,4 +11,4 @@ this.socket.on('clear-the-way', eventdata => {
 function Emit(query, param) {
     socket.emit(query, param);
 }
-export default Emit;
+export default socket;

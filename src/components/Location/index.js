@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 const { width, height } = Dimensions.get('window');
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,12 +13,11 @@ import {
   Image
 } from 'react-native';
 
-
 import { Dropdown } from 'react-native-material-dropdown';
 
 import MapView from 'react-native-maps';
 import styles from './style';
-import Emit from '../../../socket';
+import socket  from '../../../socket';
 class Location extends Component {
   static navigationOptions = {
     header: null
@@ -35,7 +33,15 @@ class Location extends Component {
       }
     };
   }
-
+  t = () => {
+    socket.on('clear-the-way', eventdata => {
+      this.props.navigation.navigate('Profile', {
+        itemId: 86,
+        latitude: eventdata.location.latitude,
+        longitude: eventdata.location.longitude
+      });
+    });
+  };
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -77,14 +83,11 @@ class Location extends Component {
   };
 
   render() {
-
     let pic = {
-      uri: 'https://cdn3.iconfinder.com/data/icons/menu-icons-1/100/menu-512.png'
+      uri:
+        'https://cdn3.iconfinder.com/data/icons/menu-icons-1/100/menu-512.png'
     };
-
-   
-
-
+    this.t();
     return (
       <View style={styles.container}>
         <MapView
@@ -94,45 +97,30 @@ class Location extends Component {
           showsCompass={true}
           initialRegion={this.state.location}
           style={styles.redbox}
+        />
+        <LinearGradient
+          colors={['#E54188', '#E54188']}
+          style={[styles.LinearGradientStyle, styles.submitSos]}
+          start={{ x: 0.0, y: 0.25 }}
+          end={{ x: 0.5, y: 1.0 }}
+          locations={[0, 0.5, 0.6]}
         >
-
-      
-
-        </MapView>
-        <LinearGradient colors={['#E54188', '#E54188',]} style=  {[styles.LinearGradientStyle , styles.submitSos]}  start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
-        locations={[0,0.5,0.6]} 
-  
-
-        >
-
-        <TouchableOpacity 
-         
-
-        onPress={() => {
-         // this.popupDialog.show();
-         const t = {
+          <TouchableOpacity
+            onPress={() => {
+              // this.popupDialog.show();
+              const t = {
                 HelpNeeded: this.state.HelpNeeded,
                 _id: '5b634af62ab229240c9051c2',
                 location: this.state.location
               };
-              Emit('request-help', t);
+              socket.emit('request-help', t);
+            }}
+          >
+            <Text style={styles.submitButtonText}>Ask for Help</Text>
+          </TouchableOpacity>
+        </LinearGradient>
 
-        }}
-        >
-       
-        <Text style={styles.submitButtonText}> Help Ask
-             </Text>
-        </TouchableOpacity>
-
-            </LinearGradient>
-
-
-        <Image source={pic} style={styles.burgerMenu}/>
-         
-          
-    
-     
-   
+        <Image source={pic} style={styles.burgerMenu} />
       </View>
     );
   }
