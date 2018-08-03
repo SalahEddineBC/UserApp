@@ -17,7 +17,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 
 import MapView from 'react-native-maps';
 import styles from './style';
-import socket  from '../../../socket';
+import socket from '../../../socket';
 class Location extends Component {
   static navigationOptions = {
     header: null
@@ -26,7 +26,7 @@ class Location extends Component {
     super(props);
     this.state = {
       location: {
-        latitude: 21.610,
+        latitude: 21.61,
         longitude: 39.156,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
@@ -35,7 +35,7 @@ class Location extends Component {
   }
   t = () => {
     socket.on('clear-the-way', eventdata => {
-      this.props.navigation.navigate('Profile', {
+      this.props.navigation.navigate('Vibrate', {
         itemId: 86,
         latitude: eventdata.location.latitude,
         longitude: eventdata.location.longitude
@@ -110,7 +110,7 @@ class Location extends Component {
               // this.popupDialog.show();
               const t = {
                 HelpNeeded: this.state.HelpNeeded,
-                _id: '5b634af62ab229240c9051c2',
+                _id: '5b634c992f024a0540f2892e',
                 location: this.state.location
               };
               socket.emit('request-help', t);

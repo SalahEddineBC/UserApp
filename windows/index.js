@@ -10,7 +10,7 @@ const RootStack= createStackNavigator(
         Vibrate:Vibrate,
     },
     {
-        initialRouteName: 'Vibrate'
+        initialRouteName: 'Home'
     }
 );
 export default RootStack;
