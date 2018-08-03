@@ -28,7 +28,7 @@ class Location extends Component {
     super(props);
     this.state = {
       location: {
-        latitude: 21.617,
+        latitude: 21.610,
         longitude: 39.156,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
