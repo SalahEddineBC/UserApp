@@ -20,6 +20,7 @@ class Vibrate extends Component {
   };
 
   DURATION = 10000;
+
   PATTERN = [1000, 2000, 3000];
 
   constructor(props) {
